@@ -46,28 +46,28 @@ namespace aho_corasick {
 			: d_start(start)
 			, d_end(end) {}
 
-		size_t get_start() const { return d_start; }
-		size_t get_end() const { return d_end; }
-		size_t size() const { return d_end - d_start + 1; }
+		[[nodiscard]] size_t get_start() const { return d_start; }
+		[[nodiscard]] size_t get_end() const { return d_end; }
+		[[nodiscard]] size_t size() const { return d_end - d_start + 1; }
 
-		bool overlaps_with(const interval& other) const {
+		[[nodiscard]] bool overlaps_with(const interval& other) const {
 			return d_start <= other.d_end && d_end >= other.d_start;
 		}
 
-		bool overlaps_with(size_t point) const {
+		[[nodiscard]] bool overlaps_with(size_t point) const {
 			return d_start <= point && point <= d_end;
 		}
 
-		bool operator <(const interval& other) const {
+		[[nodiscard]] bool operator <(const interval& other) const {
 			return (get_start() < other.get_start()) ||
                               ((get_start() == other.get_start() && size() > other.size()));
 		}
 
-		bool operator !=(const interval& other) const {
+		[[nodiscard]] bool operator !=(const interval& other) const {
 			return get_start() != other.get_start() || get_end() != other.get_end();
 		}
 
-		bool operator ==(const interval& other) const {
+		[[nodiscard]] bool operator ==(const interval& other) const {
 			return get_start() == other.get_start() && get_end() == other.get_end();
 		}
 	};
@@ -338,7 +338,7 @@ namespace aho_corasick {
 			return next;
 		}
 
-		size_t get_depth() const { return d_depth; }
+		[[nodiscard]] size_t get_depth() const { return d_depth; }
 
 		void add_emit(string_ref_type keyword, unsigned index) {
 			d_emits.insert(std::make_pair(keyword, index));
@@ -410,13 +410,13 @@ namespace aho_corasick {
 				, d_only_whole_words(false)
 				, d_case_insensitive(false) {}
 
-			bool is_allow_overlaps() const { return d_allow_overlaps; }
+			[[nodiscard]] bool is_allow_overlaps() const { return d_allow_overlaps; }
 			void set_allow_overlaps(bool val) { d_allow_overlaps = val; }
 
-			bool is_only_whole_words() const { return d_only_whole_words; }
+			[[nodiscard]] bool is_only_whole_words() const { return d_only_whole_words; }
 			void set_only_whole_words(bool val) { d_only_whole_words = val; }
 
-			bool is_case_insensitive() const { return d_case_insensitive; }
+			[[nodiscard]] bool is_case_insensitive() const { return d_case_insensitive; }
 			void set_case_insensitive(bool val) { d_case_insensitive = val; }
 		};
 
@@ -429,7 +429,7 @@ namespace aho_corasick {
 	public:
 		basic_trie(): basic_trie(config()) {}
 
-		basic_trie(const config& c)
+		explicit basic_trie(const config& c)
 			: d_root(new state_type())
 			, d_config(c)
 			, d_constructed_failure_states(false) {}
