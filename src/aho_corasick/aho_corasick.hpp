@@ -109,10 +109,10 @@ namespace aho_corasick {
 						d_intervals.push_back(i);
 					}
 				}
-				if (to_left.size() > 0) {
+				if (!to_left.empty()) {
 					d_left.reset(new node(to_left));
 				}
-				if (to_right.size() > 0) {
+				if (!to_right.empty()) {
 					d_right.reset(new node(to_right));
 				}
 			}
