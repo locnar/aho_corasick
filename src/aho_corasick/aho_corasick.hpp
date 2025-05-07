@@ -58,7 +58,8 @@ namespace aho_corasick {
 		}
 
 		bool operator <(const interval& other) const {
-			return get_start() < other.get_start();
+			return (get_start() < other.get_start()) ||
+                              ((get_start() == other.get_start() && size() > other.size()));
 		}
 
 		bool operator !=(const interval& other) const {
