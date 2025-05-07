@@ -31,6 +31,7 @@
 #include <queue>
 #include <set>
 #include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
@@ -295,14 +296,14 @@ namespace aho_corasick {
         template<typename CharType>
         class state {
         public:
-                typedef state<CharType>*                 ptr;
-                typedef std::unique_ptr<state<CharType>> unique_ptr;
-                typedef std::basic_string<CharType>      string_type;
-                typedef std::basic_string<CharType>&     string_ref_type;
-                typedef std::pair<string_type, unsigned> key_index;
-                typedef std::set<key_index>              string_collection;
-                typedef std::vector<ptr>                 state_collection;
-                typedef std::vector<CharType>            transition_collection;
+                typedef state*                            ptr;
+                typedef std::unique_ptr<state>            unique_ptr;
+                typedef std::basic_string_view<CharType>  string_type;
+                typedef std::basic_string_view<CharType>& string_ref_type;
+                typedef std::pair<string_type, unsigned>  key_index;
+                typedef std::set<key_index>               string_collection;
+                typedef std::vector<ptr>                  state_collection;
+                typedef std::vector<CharType>             transition_collection;
 
         private:
                 size_t                         d_depth;
@@ -389,8 +390,8 @@ namespace aho_corasick {
         template<typename CharType>
         class basic_trie {
         public:
-                using string_type = std::basic_string < CharType > ;
-                using string_ref_type = std::basic_string<CharType>&;
+                using string_type = std::basic_string_view<CharType>;
+                using string_ref_type = std::basic_string_view<CharType>&;
 
                 typedef state<CharType>         state_type;
                 typedef state<CharType>*        state_ptr_type;
