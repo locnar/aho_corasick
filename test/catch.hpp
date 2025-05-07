@@ -7289,6 +7289,12 @@ PVOID FatalConditionHandler::exceptionHandlerHandle = nullptr;
 
 #elif defined( CATCH_CONFIG_POSIX_SIGNALS )
 
+#if defined(linux) || defined(__linux) || defined (__linux__)
+// no longer const in glibc
+#  undef  SIGSTKSZ
+#  define SIGSTKSZ 8192
+#endif
+
 namespace Catch {
 
     struct SignalDefs {
