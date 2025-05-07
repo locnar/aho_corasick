@@ -33,7 +33,7 @@ using trie = ac::trie;
 using namespace std;
 
 string gen_str(size_t len) {
-	static const char alphanum[] =
+	static constexpr char alphanum[] =
 			"0123456789"
 			"!@#$%^&*"
 			"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -51,7 +51,7 @@ size_t bench_naive(vector<string> text_strings, vector<string> patterns) {
 	for (auto& text : text_strings) {
 		for (auto& pattern : patterns) {
 			size_t pos = text.find(pattern);
-			while (pos != text.npos) {
+			while (pos != std::basic_string<char>::npos) {
 				pos = text.find(pattern, pos);
 				count++;
 			}
@@ -77,7 +77,7 @@ int main(int argc, char** argv) {
 	while (input_strings.size() < 10) {
 		input_strings.insert(gen_str(256));
 	}
-	vector<string> input_vector(input_strings.begin(), input_strings.end());
+	const vector<string> input_vector(input_strings.begin(), input_strings.end());
 	cout << " done" << endl;
 
 	cout << "Generating search patterns ...";
@@ -85,7 +85,7 @@ int main(int argc, char** argv) {
 	while (patterns.size() < 1000000) {
 		patterns.insert(gen_str(8));
 	}
-	vector<string> pattern_vector(patterns.begin(), patterns.end());
+	const vector<string> pattern_vector(patterns.begin(), patterns.end());
 	cout << " done" << endl;
 
 	cout << "Generating trie ...";
