@@ -40,7 +40,7 @@ string gen_str(size_t len) {
 			"abcdefghijklmnopqrstuvwxyz";
 
 	string str;
-	for (int i = 0; i < len; ++i) {
+	for (size_t i = 0; i < len; ++i) {
 		str.append(1, alphanum[rand() % (sizeof(alphanum) - 1)]);
 	}
 	return string(str);
