@@ -126,6 +126,36 @@ TEST_CASE("trie works as required", "[trie]") {
 		check_emit(*it++, 8, 9, "he");
 		check_emit(*it++, 2, 9, "hehehehe");
 	}
+	SECTION("overlapping match") {
+		ac::trie t;
+		t.insert("lap");
+		t.insert("over");
+		t.insert("overlap");
+		t.insert("overlapping");
+
+		auto emits = t.parse_text("test with overlapping text");
+		REQUIRE(4 == emits.size());
+
+		auto it = emits.begin();
+		check_emit(*it++, 10, 13, "over");
+		check_emit(*it++, 14, 16, "lap");
+		check_emit(*it++, 10, 16, "overlap");
+		check_emit(*it++, 10, 20, "overlapping");
+        }
+	SECTION("overlapping match, remove overlaps") {
+		ac::trie t;
+		t.remove_overlaps();
+		t.insert("lap");
+		t.insert("over");
+		t.insert("overlap");
+		t.insert("overlapping");
+
+		auto emits = t.parse_text("test with overlapping text");
+		REQUIRE(1 == emits.size());
+
+		auto it = emits.begin();
+		check_emit(*it++, 10, 20, "overlapping");
+        }
 	SECTION("non overlapping") {
 		ac::trie t;
 		t.remove_overlaps();

@@ -54,7 +54,10 @@ TEST_CASE("interval_tree works as required", "[interval_tree]") {
 		const std::vector<ac::interval> intervals {
 			ac::interval(0, 2),
 			ac::interval(4, 5),
+			ac::interval(4, 6),
+			ac::interval(4, 8),
 			ac::interval(2, 10),
+			ac::interval(2, 8),
 			ac::interval(6, 13),
 			ac::interval(9, 15),
 			ac::interval(12, 16),
